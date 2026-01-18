@@ -4,41 +4,50 @@ const crypto = require("crypto")
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 dotenv.config();
+exports.resetPasswordToken = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const validUser = await User.findOne({ email });
 
-exports.resetPasswordToken = async(req,res)=>{
-    try{
-        const {email} = req.body;
-
-        const validUser = await User.findOne({email});
-
-        if(!validUser){
+        if (!validUser) {
             return res.status(400).json({
-                success:false,
-                message:"User not found"
-            })
+                success: false,
+                message: "User not found"
+            });
         }
 
-        const resetPassToken = await crypto.randomUUID();
+        const resetPassToken = crypto.randomUUID(); // No await needed for UUID
 
         validUser.resetPassToken = resetPassToken;
-        validUser.resetTokenExpires = Date.now() + 5*60*1000;
-
+        validUser.resetTokenExpires = Date.now() + 5 * 60 * 1000;
         await validUser.save();
 
-        const url = `${process.env.BASE_URL}/update-password/${resetPassToken}`
+        const url = `${process.env.BASE_URL}/update-password/${resetPassToken}`;
 
-        await mailSender(email,"Password reset token",`Password reset link ${url}`);
+        // --- APPLY THE LOGIC HERE ---
+        console.log("Attempting to send email to:", email);
+        
+        const emailResponse = await mailSender(
+            email,
+            "Password reset token",
+            `Password reset link: ${url}`
+        );
+        
+        console.log("Email sent result:", emailResponse);
 
-        res.status(200).json({
-            success:true,
-            message:"Password reset link sent successfully"
-        })
-    }catch(err){
-        res.status(400).json({
-            success:false,
-            message:"Token generation failed",
-            error:err.message
-        })
+        return res.status(200).json({
+            success: true,
+            message: "Password reset link sent successfully"
+        });
+        // ----------------------------
+
+    } catch (err) {
+        console.error("RESET PASSWORD TOKEN ERROR:", err);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong during token generation or email sending",
+            error: err.message
+        });
     }
 }
 
