@@ -8,7 +8,6 @@ const dbConnect = require("./config/database");
 const contactRouter = require("./routes/Contact")
 const paymentsRouter = require("./routes/Payment");
 const cookieParser = require("cookie-parser");
-
 const cors = require("cors");
 const Cloud_connect = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
@@ -16,35 +15,37 @@ const dotenv = require("dotenv");
 const dummyRouter = require("./routes/dummy");
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
-//connect to database
+/* Connect DB */
 dbConnect();
-//middlewares
-app.use(express.json());
 
+/* Middlewares */
+app.use(express.json());
 app.use(cookieParser());
 
 app.use(
-    cors({
-        origin:"http://localhost:5173",
-        credentials:true
-    })
-)
-app.use(fileUpload({
-    useTempFiles: true,   // This ensures the files are saved as temporary files
-    tempFileDir: '/tmp'  
-}));
+  cors({
+    origin: process.env.CLIENT_URL || "*",
+    credentials: true,
+  })
+);
 
-//connect cloudinary
-Cloud_connect();
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp", // ✅ required for Vercel
+  })
+);
 
-//routes
-app.use("/api/v1/auth",userRouter);
-app.use("/api/v1/profile",ProfileRouter);
-app.use("/api/v1/course",courseRouter);
-app.use("/api/v1/reach",contactRouter);
-app.use("/api/v1/payment",paymentsRouter);
-app.use("/dummy",dummyRouter);
+/* Cloudinary */
+cloudConnect();
+
+/* Routes */
+app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/profile", profileRouter);
+app.use("/api/v1/course", courseRouter);
+app.use("/api/v1/reach", contactRouter);
+app.use("/api/v1/payment", paymentsRouter);
+app.use("/dummy", dummyRouter);
 
 app.get("/",(req,res)=>{
     return res.json({
