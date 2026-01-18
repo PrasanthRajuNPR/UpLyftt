@@ -4,7 +4,7 @@ const Otp = require("../models/Otp")
 
 const Profile = require("../models/Profile") 
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const jsonwebtoken = require("jsonwebtoken");
 const mailSender = require("../utils/mailSender");
