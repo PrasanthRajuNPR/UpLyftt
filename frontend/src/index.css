@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* EXACT replacement for AuthProvider global styles */
+@layer base {
+  html {
+    background-color: #000;
+  }
+
+  body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    background-color: #000;
+    color: #fff;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* animations */
+@layer utilities {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
+}
+
+
+html, body, #root {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.input-style {
+  @apply bg-slate-800 border border-slate-700 text-white placeholder-gray-500
+         rounded-lg px-4 py-3 transition-colors
+         focus:outline-none focus:border-cyan-500;
+}
+
+.input-icon {
+  @apply absolute left-3 top-1/2 -translate-y-1/2 text-gray-500;
+}
