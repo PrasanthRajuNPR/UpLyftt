@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const cloudConnect=require("./config/cloudinary")
 const userRouter = require("./routes/User");
 const ProfileRouter = require("./routes/Profile");
 const courseRouter = require("./routes/Course");
@@ -37,7 +36,7 @@ app.use(
 );
 
 /* Cloudinary */
-cloudConnect();
+Cloud_connect();
 
 /* Routes */
 app.use("/api/v1/auth", userRouter);
