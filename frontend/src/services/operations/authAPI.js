@@ -44,7 +44,7 @@ export function login(email,password,navigate){
 
         try{
             const response = await apiConnector("POST",loginApi.LOGIN_API,{
-                email,password 
+                email,password
             })
 
             console.log("Login API response cookies : ",document.cookie);

@@ -1,20 +1,19 @@
 const express = require("express");
 const app = express();
 
-const userRouter = require("../routes/User");
-const ProfileRouter = require("../routes/Profile");
-const courseRouter = require("../routes/Course");
-const dbConnect = require("../config/database");
-const contactRouter = require("../routes/Contact")
-const paymentsRouter = require("../routes/Payment");
+const userRouter = require("./routes/User");
+const ProfileRouter = require("./routes/Profile");
+const courseRouter = require("./routes/Course");
+const dbConnect = require("./config/database");
+const contactRouter = require("./routes/Contact")
+const paymentsRouter = require("./routes/Payment");
 const cookieParser = require("cookie-parser");
 
 const cors = require("cors");
-const Cloud_connect = require("../config/cloudinary");
+const Cloud_connect = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
-const fileupload = require("fileupload");
-const dummyRouter = require("../routes/dummy");
+const dummyRouter = require("./routes/dummy");
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -53,4 +52,6 @@ app.get("/",(req,res)=>{
         message:"server is up",
     })
 }); 
-module.exports = app;
+app.listen(PORT,()=>{
+    console.log(`Server listening at port : ${PORT}`);
+});

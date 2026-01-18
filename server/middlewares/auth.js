@@ -9,7 +9,7 @@ exports.auth = async(req,res,next)=>{
     try{
 
         const jwtToken = req.cookies.jwtToken;
-
+        console.log(req);
         console.log("jwtToken : ",jwtToken);
 
         if(!jwtToken){

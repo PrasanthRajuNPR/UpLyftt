@@ -13,7 +13,7 @@ export default function EnrolledCourses() {
 
   const fetchEnrollments = async () => {
     try {
-      const data = await getUserEnrolledCourses({ token });
+      const data = await getUserEnrolledCourses( token );
 
       const mapped = (data || []).map((course) => ({
         id: course._id,

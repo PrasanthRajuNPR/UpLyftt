@@ -23,7 +23,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse ,mobi
     studentsEnrolled = [],
   } = course
 
-  const isEnrolled = user && studentsEnrolled.includes(user?._id)
+  const isEnrolled = user?._id && studentsEnrolled.includes(user?._id);
 
   const handleShare = () => {
     copy(window.location.href)
@@ -56,7 +56,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse ,mobi
   return (
     <div className="sticky top-6 my-6 lg:mx-2">
       <div className="bg-[#020617] border border-[#1E293B] rounded-2xl overflow-hidden transition-all duration-300 hover:border-[#22D3EE]/30 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)]">
-
+        {console.log("courseuuuu ",course)}
         {/* Thumbnail */}
         {(mobile===false)?(<div className="relative aspect-video overflow-hidden">
           <img
