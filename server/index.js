@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+const cloudConnect=require("./config/cloudinary")
 const userRouter = require("./routes/User");
 const ProfileRouter = require("./routes/Profile");
 const courseRouter = require("./routes/Course");
