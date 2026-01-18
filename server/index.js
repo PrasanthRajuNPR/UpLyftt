@@ -40,7 +40,7 @@ Cloud_connect();
 
 /* Routes */
 app.use("/api/v1/auth", userRouter);
-app.use("/api/v1/profile", profileRouter);
+app.use("/api/v1/profile", ProfileRouter);
 app.use("/api/v1/course", courseRouter);
 app.use("/api/v1/reach", contactRouter);
 app.use("/api/v1/payment", paymentsRouter);
