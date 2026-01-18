@@ -16,7 +16,7 @@ exports.auth = async(req,res,next)=>{
             return res.status(400).json({
                 success:false,
                 message:"Token not found",
-            })
+            }) 
         }
         
         console.log("jwtToken :",jwtToken);

@@ -42,52 +42,58 @@ exports.resetPasswordToken = async(req,res)=>{
     }
 }
 
+exports.resetPassword = async (req, res) => {
+    try {
+        const { password, confirmPassword, resetPassToken } = req.body;
 
-exports.resetPassword = async (req,res)=>{
-    try{
-        const {password,confirmPassword,resetPassToken} = req.body;
-
-        console.log("server side : ",password,confirmPassword)
-
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
             return res.status(400).json({
-                success:false,
-                message:"checkboth passwords and try again",
-            })
-            
+                success: false,
+                message: "Passwords do not match",
+            });
         }
 
-        const user = await User.findOne({resetPassToken});
+        const user = await User.findOne({ resetPassToken });
 
-        if(!user){
-            res.status(400).json({
-                success:false,
-                message:"User not found"
-            })
+        // CRITICAL: Added 'return' to stop execution
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Token"
+            });
         }
 
-        if(user.resetTokenExpires<Date.now()){
-            res.status(400).json({
-                success:false,
-                message:"token expired"
-            })
+        // CRITICAL: Added 'return' to stop execution
+        if (user.resetTokenExpires < Date.now()) {
+            return res.status(400).json({
+                success: false,
+                message: "Token expired"
+            });
         }
 
-        const hashPassword = await bcrypt.hash(password,10);
+        const hashPassword = await bcrypt.hash(password, 10);
 
-        const user1 = await User.findOneAndUpdate({resetPassToken},{password:hashPassword},{new:true});
-        //tPUfhcDmWecravyttfQhYOi50WsA8mq3wtpINOTrIh7CtduCCh3Gy
+        // Update password and clear the token so it can't be used again
+        await User.findOneAndUpdate(
+            { resetPassToken },
+            { 
+                password: hashPassword,
+                resetPassToken: null, // Security: Clear the token after use
+                resetTokenExpires: null 
+            },
+            { new: true }
+        );
 
-        res.status(200).json({
-            success:true,
-            message:"Password Updated Successfully",
-            data:[user,user1,await bcrypt.compare(user1.password,password)]
-        })
-    }catch(err){
-        res.status(400).json({
-            success:false,
-            message:err.message,
-            error:err
-        })
+        return res.status(200).json({
+            success: true,
+            message: "Password Updated Successfully",
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong while resetting the password",
+            error: err.message
+        });
     }
 }
