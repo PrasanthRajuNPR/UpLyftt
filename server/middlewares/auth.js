@@ -8,7 +8,7 @@ const User = require("../models/User");
 exports.auth = async(req,res,next)=>{
     try{
 
-        const jwtToken = req.cookies.jwtToken;
+        const jwtToken = req.header("Authorization")?.replace("Bearer ", "") || req.cookies.jwtToken;
         console.log(req);
         console.log("jwtToken : ",jwtToken);
 
