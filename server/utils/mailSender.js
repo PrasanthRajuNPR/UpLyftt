@@ -11,7 +11,7 @@ const mailSender = async (email, title, body) => {
         pass: process.env.MAIL_PASS,
       },
       // ADD THIS: Increase timeout settings for slow server connections
-      connectionTimeout: 20000, // 10 seconds
+      connectionTimeout: 100000, // 10 seconds
       greetingTimeout: 10000,
     });
 
