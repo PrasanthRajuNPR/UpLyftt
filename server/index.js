@@ -20,7 +20,7 @@ dotenv.config();
 dbConnect();
 
 /* Middlewares */
-app.use(express.json());
+app.use(express.json()); 
 app.use(cookieParser());
 
 app.use(
@@ -48,7 +48,7 @@ app.use("/api/v1/reach", contactRouter);
 app.use("/api/v1/payment", paymentsRouter);
 app.use("/dummy", dummyRouter);
 
-app.get("/",(req,res)=>{
+app.get("/dum",(req,res)=>{
     return res.json({
         success:true,
         message:"server is up",

@@ -16,7 +16,7 @@ const imageUploader = async (file, folder, height, quality) => {
     if (!filePath) {
       throw new Error("Invalid file input for Cloudinary upload");
     }
-
+ 
     return await cloudinary.uploader.upload(filePath, options);
   } catch (err) {
     console.error("Cloudinary Upload Error:", err.message);
