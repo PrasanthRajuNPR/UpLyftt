@@ -8,7 +8,8 @@ import Error from "./Error"
 import { ArrowLeft } from 'lucide-react'; 
 import { useNavigate } from 'react-router-dom';
 import CourseCarousel from '../components/core/Catalog/CourseSlider';
-
+import { BiArrowBack } from "react-icons/bi";
+import { motion } from 'framer-motion';
 const Catalog = () => {
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.profile)
@@ -57,9 +58,65 @@ const Catalog = () => {
 
   if (loading || !catalogPageData) {
     return (
-      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-        <div className="spinner"></div>
+      <div className="flex items-center justify-center min-h-screen bg-[#020617]">
+      {/* Card Container */}
+      <div className="relative p-12 bg-[#020617]  rounded-2xl shadow-2xl overflow-hidden group">
+        
+        {/* Subtle Ambient Glow */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#3B82F6]/5 to-[#22D3EE]/5 opacity-0  transition-opacity duration-500" />
+
+        <div className="relative flex flex-col items-center gap-6">
+          <div className="relative w-20 h-20">
+            {/* Outer Ring (Primary Accent) */}
+            <motion.div
+              className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#22D3EE] border-l-[#22D3EE]/30"
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              style={{
+                filter: "drop-shadow(0 0 8px #67E8F9)"
+              }}
+            />
+
+            {/* Inner Ring (Secondary Accent) */}
+            <motion.div
+              className="absolute inset-2 rounded-full border-4 border-transparent border-b-[#3B82F6] border-r-[#3B82F6]/20"
+              animate={{ rotate: -360 }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+
+            {/* Center Core Dot */}
+            <div className="absolute inset-0 m-auto w-2 h-2 bg-[#67E8F9] rounded-full shadow-[0_0_15px_#67E8F9]" />
+          </div>
+
+          {/* Loading Text */}
+          <span className="text-sm font-medium tracking-widest text-[#22D3EE] uppercase animate-pulse">
+            Loading {<div className="mt-8 flex gap-2 justify-center">
+          <div
+            className="w-2 h-2 bg-[#22D3EE] rounded-full animate-bounce-dot"
+            style={{ animationDelay: "0s" }}
+          ></div>
+          <div
+            className="w-2 h-2 bg-[#3B82F6] rounded-full animate-bounce-dot"
+            style={{ animationDelay: "0.2s" }}
+          ></div>
+          <div
+            className="w-2 h-2 bg-[#67E8F9] rounded-full animate-bounce-dot"
+            style={{ animationDelay: "0.4s" }}
+          ></div>
+        </div>}
+            
+          </span>
+        </div>
       </div>
+    </div>
     )
   }
 
@@ -75,7 +132,7 @@ const Catalog = () => {
           className="flex items-center gap-2 text-primary hover:text-hover transition-colors mb-6 sm:mb-8 group"
         >
           <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-x-1 transition-transform" />
-          <span className="font-semibold text-sm sm:text-base">Back to Catalogs</span>
+          <span className="font-semibold text-sm sm:text-base">Back to Home</span>
         </button>
 
         <div className="mb-8 sm:mb-12">
