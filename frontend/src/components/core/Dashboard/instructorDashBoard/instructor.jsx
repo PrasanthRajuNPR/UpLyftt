@@ -7,7 +7,7 @@ import { fetchInstructorCourses } from "../../../../services/operations/courseDe
 import { getInstructorData } from "../../../../services/operations/profileApi";
 import InstructorChart from "./instructorChart";
 
-export default function Instructor() {
+const Instructor=()=> {
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
 
@@ -201,3 +201,5 @@ function EmptyState() {
     </div>
   );
 }
+
+export default Instructor;
