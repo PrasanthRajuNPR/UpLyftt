@@ -27,7 +27,7 @@ import Catalog from "./pages/Catalog";
 import CourseDetails from "./pages/CourseDetails";
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from "./components/core/viewCourse/VideoDetails";
-import Instructor from "./components/core/Dashboard/InstructorDashboard/instructor";
+import Instructor from "./components/core/Dashboard/instructorDashBoard/Instructor.jsx";
 
 function App() {
 
