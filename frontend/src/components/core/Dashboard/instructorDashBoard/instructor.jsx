@@ -5,7 +5,7 @@ import { BookOpen, Users, DollarSign, TrendingUp } from "lucide-react";
 
 import { fetchInstructorCourses } from "../../../../services/operations/courseDetailsAPI";
 import { getInstructorData } from "../../../../services/operations/profileApi";
-import InstructorChart from "./instructorChart";
+import InstructorChart from "./InstructorChart";
 
 const Instructor=()=> {
   const { token } = useSelector((state) => state.auth);

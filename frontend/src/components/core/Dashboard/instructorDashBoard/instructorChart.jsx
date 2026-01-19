@@ -16,7 +16,7 @@ const COLORS = [
   "#10b981",
 ];
 
-export default function InstructorChart({ courses = [] }) {
+const InstructorChart=({ courses = [] })=> {
   const [chartType, setChartType] = useState("students");
 
   const studentData = courses
@@ -109,3 +109,4 @@ export default function InstructorChart({ courses = [] }) {
     </div>
   );
 }
+export default InstructorChart;
