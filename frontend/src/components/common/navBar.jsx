@@ -110,7 +110,7 @@ function Navbar() {
             <Link to="/" className="flex items-center gap-2 group">
               <Code2 className="w-8 h-8 text-cyan-400 group-hover:text-cyan-300" />
               <span className="text-xl font-bold text-white group-hover:text-cyan-300">
-                EduPlatform
+                UpLyft
               </span>
             </Link>
 
